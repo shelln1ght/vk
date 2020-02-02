@@ -63,7 +63,8 @@ namespace VkNet.Categories
 				{
 					{ "reply_to_story", getPhotoUploadServerParams.ReplyToStory }, { "link_text", getPhotoUploadServerParams.LinkText },
 					{ "link_url", getPhotoUploadServerParams.LinkUrl }, { "add_to_news", getPhotoUploadServerParams.AddToNews },
-					{ "user_ids", getPhotoUploadServerParams.UserIds }, { "group_id", getPhotoUploadServerParams.GroupId }
+					{ "user_ids", getPhotoUploadServerParams.UserIds }, { "group_id", getPhotoUploadServerParams.GroupId },
+					{ "clickable_stickers", Utilities.SerializeToJson(getPhotoUploadServerParams.ClickableStickers) }
 				});
 		}
 
@@ -92,17 +93,35 @@ namespace VkNet.Categories
 				{
 					{ "reply_to_story", getVideoUploadServerParams.ReplyToStory }, { "link_text", getVideoUploadServerParams.LinkText },
 					{ "link_url", getVideoUploadServerParams.LinkUrl }, { "add_to_news", getVideoUploadServerParams.AddToNews },
-					{ "user_ids", getVideoUploadServerParams.UserIds }, { "group_id", getVideoUploadServerParams.GroupId }
+					{ "user_ids", getVideoUploadServerParams.UserIds }, { "group_id", getVideoUploadServerParams.GroupId },
+					{ "clickable_stickers", Utilities.SerializeToJson(getVideoUploadServerParams.ClickableStickers) }
 				});
 		}
 
 		/// <inheritdoc/>
-		public VkCollection<User> GetViewers(long ownerId, ulong storyId, ulong? count = null, ulong? offset = null, bool? extended = null)
+		public VkCollection<long> GetViewers(long ownerId, ulong storyId, ulong? count = null, ulong? offset = null)
+		{
+			return _vk.Call<VkCollection<long>>("stories.getViewers",
+				new VkParameters
+				{
+					{ "owner_id", ownerId },
+					{ "story_id", storyId },
+					{ "count", count },
+					{ "offset", offset }
+				});
+		}
+
+		/// <inheritdoc />
+		public VkCollection<User> GetViewersExtended(long ownerId, ulong storyId, ulong? count = null, ulong? offset = null)
 		{
 			return _vk.Call<VkCollection<User>>("stories.getViewers",
 				new VkParameters
 				{
-					{ "owner_id", ownerId }, { "story_id", storyId }, { "count", count }, { "offset", offset }, { "extended", extended }
+					{ "owner_id", ownerId },
+					{ "story_id", storyId },
+					{ "count", count },
+					{ "offset", offset },
+					{ "extended", true }
 				});
 		}
 

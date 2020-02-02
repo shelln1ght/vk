@@ -50,7 +50,9 @@ namespace VkNet.Tests.Categories
 
 			var id = Api.Video.CreateComment(new VideoCreateCommentParams
 			{
-				VideoId = 166613182, Message = "забавное видео", OwnerId = 1
+				VideoId = 166613182,
+				Message = "забавное видео",
+				OwnerId = 1
 			});
 
 			Assert.That(id, Is.EqualTo(35634));
@@ -98,7 +100,10 @@ namespace VkNet.Tests.Categories
 
 			var result = Api.Video.Edit(new VideoEditParams
 			{
-				VideoId = 167538, OwnerId = 23469, Name = "Новое название", Desc = "Новое описание"
+				VideoId = 167538,
+				OwnerId = 23469,
+				Name = "Новое название",
+				Desc = "Новое описание"
 			});
 
 			Assert.That(result, Is.True);
@@ -135,82 +140,41 @@ namespace VkNet.Tests.Categories
 
 			var result = Api.Video.Get(new VideoGetParams
 			{
-				OwnerId = 1, Count = 3, Offset = 2, Extended = true
+				OwnerId = -129440544,
+				Count = 1,
+				Extended = true
 			});
 
-			Assert.That(result, Is.Not.Null);
-			Assert.That(result.Count, Is.EqualTo(3));
-
 			var video = result.FirstOrDefault();
-			Assert.That(video, Is.Not.Null);
-			Assert.That(video.Id, Is.EqualTo(166481021));
-			Assert.That(video.OwnerId, Is.EqualTo(1));
-			Assert.That(video.Title, Is.EqualTo("Лидия Аркадьевна"));
-			Assert.That(video.Duration, Is.EqualTo(131));
-			Assert.That(video.Date, Is.EqualTo(DateHelper.TimeStampToDateTime(1384867255)));
-			Assert.That(video.Views, Is.EqualTo(81677));
-			Assert.That(video.Comments, Is.EqualTo(2098));
 
-			Assert.That(video.Photo130, Is.EqualTo(new Uri("http://cs419529.vk.me/u9258277/video/s_af2727af.jpg")));
-
-			Assert.That(video.Photo320, Is.EqualTo(new Uri("http://cs419529.vk.me/u9258277/video/l_aba9c1ab.jpg")));
-
-			Assert.That(video.Player, Is.EqualTo(new Uri("http://www.youtube.com/embed/VQaHFisdf-s")));
-
-			Assert.That(video.CanComment, Is.EqualTo(true));
-			Assert.That(video.CanRepost, Is.EqualTo(true));
-			Assert.That(video.Repeat, Is.EqualTo(false));
-			Assert.That(video.Likes, Is.Not.Null);
-			Assert.That(video.Likes.UserLikes, Is.EqualTo(false));
-			Assert.That(video.Likes.Count, Is.EqualTo(1789));
-
-			var video1 = result.Skip(1).FirstOrDefault();
-			Assert.That(video1, Is.Not.Null);
-			Assert.That(video1.Id, Is.EqualTo(166468673));
-			Assert.That(video1.OwnerId, Is.EqualTo(1));
-			Assert.That(video1.Title, Is.EqualTo("Лидия Аркадьевна"));
-			Assert.That(video1.Duration, Is.EqualTo(62));
-			Assert.That(video1.Description, Is.EqualTo(string.Empty));
-			Assert.That(video1.Date, Is.EqualTo(DateHelper.TimeStampToDateTime(1384721483)));
-			Assert.That(video1.Views, Is.EqualTo(42107));
-			Assert.That(video1.Comments, Is.EqualTo(1243));
-
-			Assert.That(video1.Photo130, Is.EqualTo(new Uri("http://cs409217.vk.me/u9258277/video/s_4e281f24.jpg")));
-
-			Assert.That(video1.Photo320, Is.EqualTo(new Uri("http://cs409217.vk.me/u9258277/video/l_aa616ea2.jpg")));
-
-			Assert.That(video1.Player, Is.EqualTo(new Uri("http://www.youtube.com/embed/YfLytrkbAfM")));
-
-			Assert.That(video1.CanComment, Is.EqualTo(true));
-			Assert.That(video1.CanRepost, Is.EqualTo(true));
-			Assert.That(video1.Repeat, Is.EqualTo(false));
-			Assert.That(video1.Likes, Is.Not.Null);
-			Assert.That(video1.Likes.UserLikes, Is.EqualTo(false));
-			Assert.That(video1.Likes.Count, Is.EqualTo(640));
-
-			var video2 = result.Skip(2).FirstOrDefault();
-			Assert.That(video2, Is.Not.Null);
-			Assert.That(video2.Id, Is.EqualTo(164841344));
-			Assert.That(video2.OwnerId, Is.EqualTo(1));
-			Assert.That(video2.Title, Is.EqualTo("This is SPARTA"));
-			Assert.That(video2.Duration, Is.EqualTo(16));
-			Assert.That(video2.Description, Is.EqualTo(string.Empty));
-			Assert.That(video2.Date, Is.EqualTo(DateHelper.TimeStampToDateTime(1366495075)));
-			Assert.That(video2.Views, Is.EqualTo(218659));
-			Assert.That(video2.Comments, Is.EqualTo(2578));
-
-			Assert.That(video2.Photo130, Is.EqualTo(new Uri("http://cs12761.vk.me/u5705167/video/s_df53315c.jpg")));
-
-			Assert.That(video2.Photo320, Is.EqualTo(new Uri("http://cs12761.vk.me/u5705167/video/l_00c6be47.jpg")));
-
-			Assert.That(video2.Player, Is.EqualTo(new Uri("http://vk.com/video_ext.php?oid=1&id=164841344&hash=c8de45fc73389353")));
-
-			Assert.That(video2.CanComment, Is.EqualTo(true));
-			Assert.That(video2.CanRepost, Is.EqualTo(true));
-			Assert.That(video2.Repeat, Is.EqualTo(true));
-			Assert.That(video2.Likes, Is.Not.Null);
-			Assert.That(video2.Likes.UserLikes, Is.EqualTo(true));
-			Assert.That(video2.Likes.Count, Is.EqualTo(4137));
+			Assert.NotNull(result);
+			Assert.AreEqual(1, result.Count);
+			Assert.NotNull(video);
+			Assert.AreEqual(456245310, video.Id);
+			Assert.AreEqual(-129440544, video.OwnerId);
+			Assert.AreEqual("ec", video.Title);
+			Assert.AreEqual(20, video.Duration);
+			Assert.AreEqual(DateHelper.TimeStampToDateTime(1569151132), video.Date);
+			Assert.AreEqual(6, video.Comments);
+			Assert.AreEqual(40308, video.Views);
+			Assert.AreEqual(640, video.Width);
+			Assert.AreEqual(640, video.Height);
+			Assert.IsNotEmpty(video.Image);
+			Assert.IsNotEmpty(video.FirstFrame);
+			Assert.IsFalse(video.IsFavorite);
+			Assert.AreEqual(DateHelper.TimeStampToDateTime(1569151132), video.AddingDate);
+			Assert.IsTrue(video.Repeat);
+			Assert.NotNull(video.Files);
+			Assert.AreEqual(new Uri("https://vk.com/vi/dec_GQ3DKNZUGI4TAMQ"), video.Player);
+			Assert.True(video.CanAdd);
+			Assert.True(video.CanComment);
+			Assert.True(video.CanRepost);
+			Assert.NotNull(video.Likes);
+			Assert.False(video.Likes.UserLikes);
+			Assert.AreEqual(369, video.Likes.Count);
+			Assert.NotNull(video.Reposts);
+			Assert.False(video.Reposts.UserReposted);
+			Assert.AreEqual(1, video.Reposts.Count);
 		}
 
 		[Test]
@@ -223,7 +187,9 @@ namespace VkNet.Tests.Categories
 // 1, width: VideoWidth.Large320, count: 3, offset: 2
 			var result = Api.Video.Get(new VideoGetParams
 			{
-				OwnerId = 1, Count = 3, Offset = 2
+				OwnerId = 1,
+				Count = 3,
+				Offset = 2
 			});
 
 			Assert.That(result, Is.Not.Null);
@@ -282,29 +248,23 @@ namespace VkNet.Tests.Categories
 
 		// todo add not extended version
 		[Test]
-		public void GetAlbums_NormalCase_Extended_TwoItems()
+		public void GetAlbums_NormalCase_Extended()
 		{
 			Url = "https://api.vk.com/method/video.getAlbums";
 
-			ReadCategoryJsonPath(nameof(GetAlbums_NormalCase_Extended_TwoItems));
+			ReadCategoryJsonPath(nameof(GetAlbums_NormalCase_Extended));
 
-			var result = Api.Video.GetAlbums(234695119, extended: true);
-			Assert.That(result, Is.Not.Null);
-			Assert.That(result.Count, Is.EqualTo(2));
-
+			var result = Api.Video.GetAlbums(-129440544, extended: true, needSystem: true);
 			var videoAlbum = result.FirstOrDefault();
-			Assert.That(videoAlbum, Is.Not.Null);
-			Assert.That(videoAlbum.Id, Is.EqualTo(52154345));
-			Assert.That(videoAlbum.OwnerId, Is.EqualTo(234695119));
-			Assert.That(videoAlbum.Title, Is.EqualTo("Второй новый альбом видеозаписей"));
-			Assert.That(videoAlbum.Count, Is.EqualTo(0));
 
-			var videoAlbum1 = result.Skip(1).FirstOrDefault();
-			Assert.That(videoAlbum1, Is.Not.Null);
-			Assert.That(videoAlbum1.Id, Is.EqualTo(52152803));
-			Assert.That(videoAlbum1.OwnerId, Is.EqualTo(234695119));
-			Assert.That(videoAlbum1.Title, Is.EqualTo("Новый альбом видеозаписей"));
-			Assert.That(videoAlbum1.Count, Is.EqualTo(0));
+			Assert.NotNull(result);
+			Assert.AreEqual(2, result.TotalCount);
+			Assert.NotNull(videoAlbum);
+			Assert.AreEqual(3790, videoAlbum.Count);
+			Assert.AreEqual(-2, videoAlbum.Id);
+			Assert.AreEqual(-129440544, videoAlbum.OwnerId);
+			Assert.AreEqual("Добавленные", videoAlbum.Title);
+			Assert.IsNotEmpty(videoAlbum.Image);
 		}
 
 		[Test]
@@ -316,7 +276,12 @@ namespace VkNet.Tests.Categories
 
 			var comments = Api.Video.GetComments(new VideoGetCommentsParams
 			{
-				VideoId = 166481021, OwnerId = 1, NeedLikes = true, Count = 2, Offset = 3, Sort = CommentsSort.Asc
+				VideoId = 166481021,
+				OwnerId = 1,
+				NeedLikes = true,
+				Count = 2,
+				Offset = 3,
+				Sort = CommentsSort.Asc
 			});
 
 			Assert.That(comments, Is.Not.Null);
@@ -357,7 +322,12 @@ namespace VkNet.Tests.Categories
 
 			var comments = Api.Video.GetComments(new VideoGetCommentsParams
 			{
-				VideoId = 166481021, OwnerId = 1, NeedLikes = false, Count = 2, Offset = 3, Sort = CommentsSort.Asc
+				VideoId = 166481021,
+				OwnerId = 1,
+				NeedLikes = false,
+				Count = 2,
+				Offset = 3,
+				Sort = CommentsSort.Asc
 			});
 
 			Assert.That(comments, Is.Not.Null);
@@ -434,7 +404,9 @@ namespace VkNet.Tests.Categories
 
 			var video = Api.Video.Save(new VideoSaveParams
 			{
-				Name = "Название из ютуба", Description = "Описание из ютуба", Wallpost = true,
+				Name = "Название из ютуба",
+				Description = "Описание из ютуба",
+				Wallpost = true,
 				Link = "https://www.youtube.com/watch?v=lhQtzv5a408&list=PLBC36AAAE4E4E0CAA"
 			});
 
@@ -468,8 +440,14 @@ namespace VkNet.Tests.Categories
 			// , VideoSort.Relevance, false, true, VideoFilters.Long, false, 5, 1
 			var result = Api.Video.Search(new VideoSearchParams
 			{
-				Query = "саша грей", Sort = VideoSort.Relevance, Hd = false, Adult = true, Filters = VideoFilters.Long, SearchOwn = false,
-				Count = 5, Offset = 1
+				Query = "саша грей",
+				Sort = VideoSort.Relevance,
+				Hd = false,
+				Adult = true,
+				Filters = VideoFilters.Long,
+				SearchOwn = false,
+				Count = 5,
+				Offset = 1
 			});
 
 			Assert.That(result, Is.Not.Null);
@@ -549,6 +527,19 @@ namespace VkNet.Tests.Categories
 			Assert.That(video2.Photo320, Is.EqualTo(new Uri("http://cs535107.vk.me/u146564541/video/l_cb794198.jpg")));
 
 			Assert.That(video2.Player, Is.EqualTo(new Uri("http://vk.com/video_ext.php?oid=-54257090&id=166728490&hash=15a0552ca76bedac")));
+		}
+
+		[Test]
+		public void AddToAlbum()
+		{
+			Url = "https://api.vk.com/method/video.addToAlbum";
+
+			ReadCategoryJsonPath(nameof(AddToAlbum));
+
+			var result = Api.Video.AddToAlbum(123, 123, null, null, 123);
+
+			Assert.That(result.TotalCount, Is.EqualTo(0));
+			Assert.Contains(2, result);
 		}
 	}
 }

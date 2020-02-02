@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using VkNet.Abstractions.Core;
+using VkNet.Exception;
 
 namespace VkNet.Infrastructure
 {
@@ -9,7 +10,7 @@ namespace VkNet.Infrastructure
 	{
 		private const int CurrentMajorVersion = 5;
 
-		private const int CurrentMinorVersion = 101;
+		private const int CurrentMinorVersion = 103;
 
 		private int Major { get; set; } = CurrentMajorVersion;
 
@@ -21,6 +22,14 @@ namespace VkNet.Infrastructure
 		/// <inheritdoc />
 		public void SetVersion(int major, int minor)
 		{
+			if (major < CurrentMajorVersion)
+			{
+				throw new VkApiException("С 27 мая 2019 года версии API ниже 5.0 больше не поддерживаются.")
+				{
+					HelpLink = "https://vk.com/dev/version_update_2.0"
+				};
+			}
+
 			Major = major;
 			Minor = minor;
 		}

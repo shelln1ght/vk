@@ -38,7 +38,7 @@ namespace VkNet.Model.RequestParams
 		/// </summary>
 		[JsonProperty("date")]
 		[JsonConverter(typeof(DateTimeToStringFormatConverter), "ddMMyyyy")]
-		public DateTime Date { get; set; }
+		public DateTime? Date { get; set; }
 
 		/// <summary>
 		/// Количество символов, по которому нужно обрезать сообщение.
@@ -58,8 +58,11 @@ namespace VkNet.Model.RequestParams
 		/// <summary>
 		/// Количество сообщений, которое необходимо получить.
 		/// </summary>
+		/// <remarks>
+		/// По умолчанию 20.
+		/// </remarks>
 		[JsonProperty("count")]
-		public uint? Count { get; set; } = 20;
+		public uint? Count { get; set; }
 
 		/// <summary>
 		/// 1 — возвращать дополнительные поля для пользователей и сообществ. В ответе будет содержаться массив объектов бесед. флаг, может принимать значения 1 или 0

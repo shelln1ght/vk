@@ -131,6 +131,11 @@ namespace VkNet.Categories
 		/// <inheritdoc />
 		public long Send(MessagesSendParams @params)
 		{
+			if (@params.UserIds != null && @params.UserIds.Any())
+			{
+				throw new ArgumentException($"This method not intended to use with many target users. Use {nameof(SendToUserIds)} instead.");
+			}
+
 			if (_vk.VkApiVersion.IsGreaterThanOrEqual(5, 90) && @params.RandomId == null)
 			{
 				throw new ArgumentException($"{nameof(@params.RandomId)} обязательное значение.");
@@ -146,7 +151,7 @@ namespace VkNet.Categories
 		}
 
 		/// <inheritdoc />
-		public bool DeleteConversation(long? userId, long? peerId = null, ulong? groupId = null)
+		public ulong DeleteConversation(long? userId, long? peerId = null, ulong? groupId = null)
 		{
 			var parameters = new VkParameters
 			{
@@ -155,7 +160,7 @@ namespace VkNet.Categories
 				{ "group_id", groupId }
 			};
 
-			return _vk.Call<bool>("messages.deleteConversation", parameters);
+			return _vk.Call("messages.deleteConversation", parameters)["last_deleted_id"];
 		}
 
 		/// <inheritdoc />
@@ -260,7 +265,7 @@ namespace VkNet.Categories
 		}
 
 		/// <inheritdoc />
-		public bool DeleteDialog(long? userId, long? peerId = null, uint? offset = null, uint? count = null)
+		public ulong DeleteDialog(long? userId, long? peerId = null, uint? offset = null, uint? count = null)
 		{
 			return DeleteConversation(userId, peerId, null);
 		}

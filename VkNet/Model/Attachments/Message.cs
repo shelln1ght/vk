@@ -72,15 +72,16 @@ namespace VkNet.Model
 				Photo100 = response["photo_100"],
 				Photo200 = response["photo_200"],
 				InRead = response["in_read"],
+				IsCropped = response["is_cropped"],
 				OutRead = response["out_read"],
 				Out = response["out"],
 				UpdateTime = response["update_time"],
-
 				Keyboard = response["keyboard"],
 				ConversationMessageId = response["conversation_message_id"],
 				Ref = response["ref"],
 				RefSource = response["ref_source"],
-				ReplyMessage = response["reply_message"]
+				ReplyMessage = response["reply_message"],
+				AdminAuthorId = response["admin_author_id"]
 			};
 
 			return message;
@@ -307,6 +308,12 @@ namespace VkNet.Model
 		/// </summary>
 		public MessageKeyboard Keyboard { get; set; }
 
+		/// <summary>
+		/// Является ли сообщение обрезаным.
+		/// </summary>
+		[JsonProperty("is_cropped")]
+		public bool? IsCropped { get; set; }
+
 	#endregion
 
 	#region недокументированные
@@ -316,6 +323,12 @@ namespace VkNet.Model
 		/// </summary>
 		[JsonProperty("conversation_message_id")]
 		public long? ConversationMessageId { get; set; }
+
+		/// <summary>
+		/// Идентификатор администратора в беседе
+		/// </summary>
+		[JsonProperty("admin_author_id")]
+		public long? AdminAuthorId { get; set; }
 
 		/// <summary>
 		/// Тип сообщения (не возвращается для пересланных сообщений).

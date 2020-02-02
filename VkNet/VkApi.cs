@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +21,6 @@ using VkNet.Categories;
 using VkNet.Enums;
 using VkNet.Exception;
 using VkNet.Infrastructure;
-using VkNet.Infrastructure.Authorization.ImplicitFlow;
 using VkNet.Model;
 using VkNet.Utils;
 using VkNet.Utils.AntiCaptcha;
@@ -72,6 +69,8 @@ namespace VkNet
 		/// </summary>
 		private ILogger<VkApi> _logger;
 
+		private readonly ServiceProvider _serviceProvider;
+
 	#pragma warning disable S1104 // Fields should not have public accessibility
 		/// <summary>
 		/// Rest Client
@@ -101,9 +100,9 @@ namespace VkNet
 
 			container.RegisterDefaultDependencies();
 
-			IServiceProvider serviceProvider = container.BuildServiceProvider();
+			_serviceProvider = container.BuildServiceProvider();
 
-			Initialization(serviceProvider);
+			Initialization(_serviceProvider);
 		}
 
 		/// <inheritdoc />
@@ -113,9 +112,9 @@ namespace VkNet
 
 			container.RegisterDefaultDependencies();
 
-			IServiceProvider serviceProvider = container.BuildServiceProvider();
+			_serviceProvider = container.BuildServiceProvider();
 
-			Initialization(serviceProvider);
+			Initialization(_serviceProvider);
 		}
 
 		/// <summary>
@@ -423,7 +422,7 @@ namespace VkNet
 		protected virtual void Dispose(bool disposing)
 		{
 			_expireTimer?.Dispose();
-			RestClient?.Dispose();
+			_serviceProvider.Dispose();
 		}
 
 	#region Requests limit stuff

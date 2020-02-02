@@ -98,13 +98,15 @@ namespace VkNet.Categories
 		public object CreateTargetGroup(CreateTargetGroupParams createTargetGroupParams)
 		{
 			return _vk.Call<object>("ads.createTargetGroup",
-				new VkParameters
-				{
-					{ "account_id", createTargetGroupParams.AccountId }, { "name", createTargetGroupParams.Name },
-					{ "client_id", createTargetGroupParams.ClientId }, { "lifetime", createTargetGroupParams.Lifetime },
-					{ "target_pixel_id", createTargetGroupParams.TargetPixelId },
-					{ "target_pixel_rules", createTargetGroupParams.TargetPixelRules }
-				});
+									new VkParameters
+									{
+										{ "account_id", createTargetGroupParams.AccountId },
+										{ "name", createTargetGroupParams.Name },
+										{ "client_id", createTargetGroupParams.ClientId },
+										{ "lifetime", createTargetGroupParams.Lifetime },
+										{ "target_pixel_id", createTargetGroupParams.TargetPixelId },
+										{ "target_pixel_rules", Utilities.SerializeToJson(createTargetGroupParams.TargetPixelRules) }
+									});
 		}
 
 		/// <inheritdoc/>
@@ -418,14 +420,17 @@ namespace VkNet.Categories
 		public bool UpdateTargetGroup(UpdateTargetGroupParams updateTargetGroupParams)
 		{
 			return _vk.Call<bool>("ads.updateTargetGroup",
-				new VkParameters
-				{
-					{ "account_id", updateTargetGroupParams.AccountId }, { "target_group_id", updateTargetGroupParams.TargetGroupId },
-					{ "name", updateTargetGroupParams.Name }, { "domain", updateTargetGroupParams.Domain },
-					{ "client_id", updateTargetGroupParams.ClientId }, { "lifetime", updateTargetGroupParams.Lifetime },
-					{ "target_pixel_id", updateTargetGroupParams.TargetPixelId },
-					{ "target_pixel_rules", updateTargetGroupParams.TargetPixelRules }
-				});
+								  new VkParameters
+								  {
+									  { "account_id", updateTargetGroupParams.AccountId },
+									  { "target_group_id", updateTargetGroupParams.TargetGroupId },
+									  { "name", updateTargetGroupParams.Name },
+									  { "domain", updateTargetGroupParams.Domain },
+									  { "client_id", updateTargetGroupParams.ClientId },
+									  { "lifetime", updateTargetGroupParams.Lifetime },
+									  { "target_pixel_id", updateTargetGroupParams.TargetPixelId },
+									  { "target_pixel_rules", Utilities.SerializeToJson(updateTargetGroupParams.TargetPixelRules) }
+								  });
 		}
 
 		/// <inheritdoc/>
