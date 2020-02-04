@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
 using VkNet.Utils;
 
@@ -47,7 +47,7 @@ namespace VkNet.Model.Attachments
 		[JsonProperty("height")]
 		public int Height { get; set; }
 
-	#region Методы
+		#region Методы
 
 		/// <summary>
 		/// Разобрать из json.
@@ -58,6 +58,8 @@ namespace VkNet.Model.Attachments
 		{
 			return new Graffiti
 			{
+				Photo200 = response["photo_200"],
+				Photo586 = response["photo_586"],
 				Id = response["id"],
 				OwnerId = response["owner_id"],
 				Url = response["url"],
